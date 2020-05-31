@@ -1,5 +1,6 @@
 package jpabook.start;
 
+import jpabook.start.domain.Board;
 import jpabook.start.domain.Member;
 
 import javax.persistence.EntityManager;
@@ -21,17 +22,22 @@ public class JpaMain {
             tx.begin();
             logic(em);
             tx.commit();
-        }catch (Exception e){
-            e.printStackTrace();;
+        } catch (Exception e) {
+            e.printStackTrace();
+            ;
             tx.rollback();
-        }finally {
+        } finally {
             em.close();
         }
 
         emf.close();
     }
 
-    public static void logic(EntityManager em){
+    public static void logic(EntityManager em) {
+        Board board = new Board();
+        em.persist(board);
+        System.out.println("board.id = " + board.getId());
+
         String id = "id1";
         Member member = new Member();
         member.setId(id);
